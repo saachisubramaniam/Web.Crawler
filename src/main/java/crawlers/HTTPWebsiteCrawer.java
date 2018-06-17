@@ -47,7 +47,7 @@ public class HTTPWebsiteCrawer extends WebCrawler {
             String html = htmlParseData.getHtml();
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
-            System.out.println("Text length: " + text.length());
+            System.out.println("Text lsssength: " + text.length());
             System.out.println("Html length: " + html.length());
             System.out.println("Number of outgoing links: " + links.size());
             content = html;
