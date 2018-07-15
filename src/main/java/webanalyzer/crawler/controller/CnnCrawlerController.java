@@ -18,7 +18,7 @@ public class CnnCrawlerController {
     @RequestMapping("/cnn/content")
     @ResponseBody
     String getCnnContent() throws IOException {
-        String crawlresult = cnnCrawlerModel.crawl("http://bbc.com");
+        String crawlresult = cnnCrawlerModel.crawl("https://www.bbc.com/news");
 
         return crawlresult;
     }
