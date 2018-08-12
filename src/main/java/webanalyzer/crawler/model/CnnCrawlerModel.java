@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import javax.swing.plaf.synth.SynthScrollBarUI;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
@@ -31,12 +32,14 @@ public class CnnCrawlerModel {
                     
                     //if we dont have in the cache if(cache.get("URL"))
                     Document child = Jsoup.connect(articleUrl).get();
-                    System.out.println(child.select("img"));
-                    Article article = new Article(child.text(),articleUrl);
+                    String imageUrl = child.select("img").attr("src");
+                    System.out.println(imageUrl);
+                    Article article = new Article(child.text(),articleUrl, imageUrl);
                     cache.put(article.articleUrl, article);
                     articles.add(article);
-                    //if we have in the cache execute below else {
-                    // articles.add(cache.get("URL");
+
+//                else
+//                    articles.add(cache.get("URL");
                 }
             }
 
