@@ -2,31 +2,34 @@ package webanalyzer.crawler.model;
 
 public class Article {
 
-    public String articleText;
-    public String articleUrl;
+    public String content;
+    public String id;
     public String imageUrl;
 
+    public Article() {
 
-    public Article(String articleText, String articleUrl, String imageUrl) {
-        this.articleText = articleText;
-        this.articleUrl = articleUrl;
+    }
+
+    public Article(String content, String id, String imageUrl) {
+        this.content = content;
+        this.id = id;
         this.imageUrl = imageUrl;
     }
 
-    public String getArticleText() {
-        return articleText;
+    public String getContent() {
+        return content;
     }
 
-    public void setArticleText(String articleText) {
-        this.articleText = articleText;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getArticleUrl() {
-        return articleUrl;
+    public String getId() {
+        return id;
     }
 
-    public void setArticleUrl(String articleUrl) {
-        this.articleUrl = articleUrl;
+    public void setId(String id) {
+        this.id = id;
     }
 
 

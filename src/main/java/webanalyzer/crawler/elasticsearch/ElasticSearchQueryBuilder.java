@@ -11,8 +11,8 @@ public class ElasticSearchQueryBuilder {
 
     public String getAddANewArticleQuery(Article article) {
         return "{\n" +
-                "\"content\":\"" + article.getArticleText() + "\",\n" +
-                "\"id\":\"" + article.getArticleUrl() + "\",\n" +
+                "\"content\":\"" + article.getContent() + "\",\n" +
+                "\"id\":\"" + article.getId() + "\",\n" +
                 "\"imageURL\": \"" + article.getImageUrl() + "\"\n" +
                 "}";
     }
