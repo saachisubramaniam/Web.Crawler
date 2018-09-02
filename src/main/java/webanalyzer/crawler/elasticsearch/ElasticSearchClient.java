@@ -4,6 +4,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
+import webanalyzer.crawler.model.Response;
 
 import java.util.logging.Logger;
 
@@ -27,8 +28,10 @@ public class ElasticSearchClient {
             return restTemplate.postForEntity(ELASTIC_SEARCH_URL + url, entity, String.class).getBody();
         }
 
-        public String executeGet(String url) {
-            return restTemplate.getForEntity(ELASTIC_SEARCH_URL + url, String.class).getBody();
+        public Response executeGet(String url) {
+            log.info(ELASTIC_SEARCH_URL + url);
+
+            return restTemplate.getForEntity(ELASTIC_SEARCH_URL + url, Response.class).getBody();
         }
 
     }

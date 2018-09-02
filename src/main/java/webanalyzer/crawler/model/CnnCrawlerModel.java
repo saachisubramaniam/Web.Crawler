@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import webanalyzer.crawler.elasticsearch.ElasticSearchClient;
 import webanalyzer.crawler.elasticsearch.ElasticSearchQueryBuilder;
@@ -33,22 +34,20 @@ public class CnnCrawlerModel {
                     System.out.println(articleUrl);
 
                     //if we dont have in the cache if(cache.get("URL"))
-                    if (!cache.containsKey(articleUrl)) {
+                    try {
+                        Response result = (new ElasticSearchClient()).executeOn(new RestTemplate()).executeGet("articles/_doc/" + (new URLtoKeyAdapter()).adapt(articleUrl));
+                        System.out.println("RESPONSE" + result.found);
 
+                    } catch (HttpClientErrorException e) {
                         Document child = Jsoup.connect(articleUrl).get();
                         String imageUrl = child.select("img").attr("src");
                         System.out.println(imageUrl);
-                        Article article = new Article(child.text().replaceAll("\"","'"), articleUrl, imageUrl);
+                        Article article = new Article(child.text().replaceAll("\"", "'"), articleUrl, imageUrl);
                         cache.put(article.articleUrl, article);
                         articles.add(article);
                         if (article.articleUrl != null && article.articleUrl.length() > 3)
-                            (new ElasticSearchClient()).executeOn(new RestTemplate()).executeQuery("articles/_doc/raz" + (new URLtoKeyAdapter()).adapt(article.articleUrl), (new ElasticSearchQueryBuilder()).getAddANewArticleQuery(article));
-                    } else {
-                        articles.add(cache.get(articleUrl));
-
-
+                            (new ElasticSearchClient()).executeOn(new RestTemplate()).executeQuery("articles/_doc/" + (new URLtoKeyAdapter()).adapt(article.articleUrl), (new ElasticSearchQueryBuilder()).getAddANewArticleQuery(article));
                     }
-
 
                 }
             }
